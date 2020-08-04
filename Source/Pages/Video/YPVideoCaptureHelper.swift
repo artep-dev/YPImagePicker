@@ -31,11 +31,12 @@ class YPVideoCaptureHelper: NSObject {
     private var initVideoZoomFactor: CGFloat = 1.0
     
     // MARK: - Init
-    
+     
     public func start(previewView: UIView, withVideoRecordingLimit: TimeInterval, completion: @escaping () -> Void) {
         self.previewView = previewView
         self.videoRecordingTimeLimit = withVideoRecordingLimit
         
+        //added delay 
         sessionQueue.asyncAfter(deadline: .now() + 0.2) { [weak self] in
             guard let strongSelf = self else {
                 return
