@@ -35,7 +35,8 @@ class YPVideoCaptureHelper: NSObject {
     public func start(previewView: UIView, withVideoRecordingLimit: TimeInterval, completion: @escaping () -> Void) {
         self.previewView = previewView
         self.videoRecordingTimeLimit = withVideoRecordingLimit
-        sessionQueue.async { [weak self] in
+        
+        sessionQueue.asyncAfter(deadline: .now() + 0.2) { [weak self] in
             guard let strongSelf = self else {
                 return
             }
@@ -52,8 +53,8 @@ class YPVideoCaptureHelper: NSObject {
     
     public func startCamera(completion: @escaping (() -> Void)) {
         if !session.isRunning {
-            sessionQueue.async { [weak self] in
-                // Re-apply session preset
+            
+            sessionQueue.asyncAfter(deadline: .now() + 0.2) { [weak self] in
                 self?.session.sessionPreset = .high
                 let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
                 switch status {
